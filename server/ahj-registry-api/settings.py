@@ -220,3 +220,28 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
+
+# Throttling
+# https://www.django-rest-framework.org/api-guide/throttling/
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/day'
+    }
+}
+
+# Caching
+# https://docs.djangoproject.com/en/3.1/topics/cache/#setting-up-the-cache
+# https://docs.djangoproject.com/en/3.1/ref/settings/#caches
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'ahj_cache_table',
+    }
+}
